@@ -1,0 +1,43 @@
+Programme de simulation d'un ascenseur avec deux boutons sur chaque palier et voyant
+lumineux indiquant l'intention de la cabine.
+
+En mode parfait, tous les passagers respectent l'indicateur d'intention de la cabine, et ne
+montent que si l'indicateur d'intention correspond bien à leur destination. En outre, ces
+passagers intelligents n'appuient que sur un seul bouton (celui, qui correspond à leur
+destination).
+
+En mode infernal, les passagers entrent dans la cabine dès qu'elle se présente. Les passagers
+ne regardent même pas le voyant indiquant l'intention de la cabine. Toujours en mode infernal
+on considère que les passager appuient toujours sur les deux boutons (bouton de demande pour 
+descendre ET bouton de demande pour monter). Il sont vraiment très idiots.
+
+Les passagers sont des sportifs et ils peuvent décider de monter ou de descendre à pieds au bout
+d'un certain délai de patience. Une fois qu'un passager à décidé de partir à pieds, il termine
+complètement son voyage à pieds, même s'il passe sur un palier ou se trouve déjà la cabine.
+
+Liste des événements:
+ - APP dans EvenementArriveePassagerPalier.java
+ - PCP dans EvenementPassageCabinePalier.java
+ - OPC dans EvenementOuverturePorteCabine.java
+ - FPC dans EvenementFermeturePorteCabine.java
+ - PAP dans EvenementPietonArrivePalier.java
+
+On ne code que ce qui se réalise vraiment. Il est donc normal qu'il reste
+des notYetImplemented à la fin de ce projet.
+
+Le déplacement de la cabine dépends à la fois des gens dans la cabine et des
+personnes en attente dans les étages.
+
+Les événement PAP sont retirés de l'échéancier lors de l'entrée dans la cabine.
+
+Attention, en principe, on exporte jamais les collections (tableaux, listes, etc.).
+Il faut juste mettre les code au bon endroit, selon les principes de la programmation
+par objets.
+
+On précise également que la machinerie de l'ascenseur ne dispose pas de capteur pour savoir
+si la cabine est pleine ou non. Par conséquent, il est normal de voire la cabine s'arreter
+pour charger de nouveau passager même lorsqu'elle est pleine à craquer.
+
+Pour simplifier, la cabine ne change jamais son intention durant un PCP. On lance la méthode
+de mise à jour de l'intention uniquement dans l'OPC, juste après la descente des passagers et
+juste avant la montée des passagers.
