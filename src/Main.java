@@ -10,15 +10,15 @@ public class Main extends Global {
 
     public static void main(String args[]) {
         assert (assertFlag = true);
-        System.out.println("Mode de simulation ? (p) parfait ? (i) infernal ? parfait par défaut ?");
+        System.out.println("Mode de simulation ? (p) parfait ? (i) infernal ? parfait par defaut ?");
         boolean mode = true;
         modeParfait = !readLine().equals("i");
-        Echeancier échéancier = new Echeancier();
-        Immeuble immeuble = new Immeuble(échéancier);
+        Echeancier echeancier = new Echeancier();
+        Immeuble immeuble = new Immeuble(echeancier);
         int loop = 1;
         int nbPasSimul = 0;
         // Boucle principale du simulateur:
-        while (!échéancier.estVide()) {
+        while (!echeancier.estVide()) {
             if (loop == 1) {
                 buffer.setLength(0);
                 buffer.append("----- Etat actuel du simulateur (nombre total de pas = ");
@@ -27,30 +27,30 @@ public class Main extends Global {
                 buffer.append(") -----");
                 System.out.println(buffer);
                 immeuble.affiche(buffer);
-                échéancier.affiche(buffer, immeuble);
+                echeancier.affiche(buffer, immeuble);
                 System.out.println("Taper \"Enter\", ou le nombre de pas, ou q pour quitter:");
-                String réponse = readLine();
-                if (réponse.equals("q")) {
+                String reponse = readLine();
+                if (reponse.equals("q")) {
                     return;
-                } else if (réponse.equals("s")) { // Stop / Secret
-                    échéancier.supprimeAPPs();
+                } else if (reponse.equals("s")) { // Stop / Secret
+                    echeancier.supprimeAPPs();
                 }
                 ;
-                loop = parseInt(réponse);
+                loop = parseInt(reponse);
             } else {
                 loop--;
             }
-            Evenement evenement = échéancier.retourneEtEnlevePremier();
-            assert pasDeRetourDansLePassé(evenement.date) : "Retour dans le passé:" + memoDate + "/" + evenement.date;
-            evenement.traiter(immeuble, échéancier);
+            Evenement evenement = echeancier.retourneEtEnlevePremier();
+            assert pasDeRetourDansLePasse(evenement.date) : "Retour dans le passe:" + memoDate + "/" + evenement.date;
+            evenement.traiter(immeuble, echeancier);
             nbPasSimul++;
         }
-        System.out.println("Echéancier vide. Arrêt.");
+        System.out.println("Echeancier vide. Arrêt.");
     }
 
     private static long memoDate = -1;
 
-    private static boolean pasDeRetourDansLePassé(long nouvelleDate) {
+    private static boolean pasDeRetourDansLePasse(long nouvelleDate) {
         if (nouvelleDate >= memoDate) {
             memoDate = nouvelleDate;
             return true;
@@ -70,10 +70,10 @@ public class Main extends Global {
         return result;
     }
 
-    private static int parseInt(String réponse) {
+    private static int parseInt(String reponse) {
         int result = 1;
         try {
-            result = Integer.parseInt(réponse);
+            result = Integer.parseInt(reponse);
         } catch (Exception e) {
         }
         return result;

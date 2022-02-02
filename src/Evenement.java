@@ -1,5 +1,5 @@
 public abstract class Evenement extends Global {
-    /* A priori, cette classe ne doit pas être modifiée.
+    /* A priori, cette classe ne doit pas être modifiee.
        C'est possible quand même. À vous de juger !
      */
 

@@ -1,9 +1,9 @@
 public class EvenementFermeturePorteCabine extends Evenement {
     /* FPC: Fermeture Porte Cabine
-       L'instant précis ou la porte termine de se fermer.
-       Tant que la porte n'est pas complètement fermée, il est possible pour un passager
-       de provoquer la réouverture de la porte. Dans ce cas le FPC est décalé dans le temps
-       selon la méthode decalerFPC qui est dans l'échéancier.
+       L'instant precis ou la porte termine de se fermer.
+       Tant que la porte n'est pas complètement fermee, il est possible pour un passager
+       de provoquer la reouverture de la porte. Dans ce cas le FPC est decale dans le temps
+       selon la methode decalerFPC qui est dans l'echeancier.
     */
 
     public EvenementFermeturePorteCabine(long d) {
@@ -16,7 +16,7 @@ public class EvenementFermeturePorteCabine extends Evenement {
 
     public void traiter(Immeuble immeuble, Echeancier echeancier) {
         Cabine cabine = immeuble.cabine;
-        assert cabine.porteOuverte : "précondition";
+        assert cabine.porteOuverte : "precondition";
 
         //cabine.porteOuverte = false;
         notYetImplemented();

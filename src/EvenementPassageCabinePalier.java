@@ -1,25 +1,25 @@
 public class EvenementPassageCabinePalier extends Evenement {
     /* PCP: Passage Cabine Palier
-       L'instant précis où la cabine passe juste en face d'un étage précis.
-       Vous pouvez modifier cette classe comme vous voulez (ajouter/modifier des méthodes etc.).
+       L'instant precis où la cabine passe juste en face d'un etage precis.
+       Vous pouvez modifier cette classe comme vous voulez (ajouter/modifier des methodes etc.).
     */
 
-    private Etage étage;
+    private Etage etage;
 
     public EvenementPassageCabinePalier(long d, Etage e) {
         super(d);
-        étage = e;
+        etage = e;
     }
 
     public void afficheDetails(StringBuilder buffer, Immeuble immeuble) {
         buffer.append("PCP ");
-        buffer.append(étage.numéro());
+        buffer.append(etage.numero());
     }
 
     public void traiter(Immeuble immeuble, Echeancier echeancier) {
         Cabine cabine = immeuble.cabine;
         assert !cabine.porteOuverte;
-        assert étage.numéro() != cabine.étage.numéro();
+        assert etage.numero() != cabine.etage.numero();
 
         notYetImplemented();
 

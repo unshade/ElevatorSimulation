@@ -1,36 +1,36 @@
 public class Immeuble extends Global {
-    /* Dans cette classe, vous pouvez ajouter/enlever/modifier/corriger les méthodes, mais vous ne
+    /* Dans cette classe, vous pouvez ajouter/enlever/modifier/corriger les methodes, mais vous ne
        pouvez pas ajouter des attributs (variables d'instance).
     */
 
     private Etage[] tableauDesEtages;
-    /* Les étages, dans l'ordre de leur numérotation. Aucun null dans ce tableau.
+    /* Les etages, dans l'ordre de leur numerotation. Aucun null dans ce tableau.
        Comme toute les collections, il ne faut pas l'exporter.
     */
 
     public Cabine cabine; // de l'ascenseur.
 
-    private Etage niveauDuSol; // le niveau 0 en général.
+    private Etage niveauDuSol; // le niveau 0 en general.
 
     public long cumulDesTempsDeTransport = 0;
 
     public long nombreTotalDesPassagersSortis = 0;
 
-    public Etage étageLePlusBas() {
+    public Etage etageLePlusBas() {
         Etage res = tableauDesEtages[0];
         assert res != null;
         return res;
     }
 
-    public Etage étageLePlusHaut() {
+    public Etage etageLePlusHaut() {
         Etage res = tableauDesEtages[tableauDesEtages.length - 1];
         assert res != null;
         return res;
     }
 
     public Etage niveauDuSol() {
-        assert étageLePlusHaut().numéro() >= niveauDuSol.numéro();
-        assert étageLePlusBas().numéro() <= niveauDuSol.numéro();
+        assert etageLePlusHaut().numero() >= niveauDuSol.numero();
+        assert etageLePlusBas().numero() <= niveauDuSol.numero();
         return niveauDuSol;
     }
 
@@ -52,12 +52,12 @@ public class Immeuble extends Global {
         }
         for (int i = 0; i < tableauDesEtages.length; i++) {
             Etage etage = tableauDesEtages[i];
-            long date = etage.arrivéeSuivante();
+            long date = etage.arriveeSuivante();
             echeancier.ajouter(new EvenementArriveePassagerPalier(date, etage));
         }
-        e = étageLePlusHaut();
+        e = etageLePlusHaut();
         cabine = new Cabine(niveauDuSol());
-        e = étage(e.numéro() - 1);
+        e = etage(e.numero() - 1);
     }
 
     public void affiche(StringBuilder buffer) {
@@ -69,10 +69,10 @@ public class Immeuble extends Global {
         }
         buffer.append("| Escalier pour sportifs");
         System.out.println(buffer);
-        int i = étageLePlusHaut().numéro();
-        while (i >= étageLePlusBas().numéro()) {
+        int i = etageLePlusHaut().numero();
+        while (i >= etageLePlusBas().numero()) {
             buffer.setLength(0);
-            étage(i).afficheDans(buffer);
+            etage(i).afficheDans(buffer);
             System.out.println(buffer);
             i--;
         }
@@ -87,17 +87,17 @@ public class Immeuble extends Global {
         System.out.println(buffer);
     }
 
-    public Etage étage(int i) {
-        assert étageLePlusBas().numéro() <= i : "trop bas" + i;
-        assert étageLePlusHaut().numéro() >= i : "trop haut" + i;
-        Etage res = tableauDesEtages[i - étageLePlusBas().numéro()];
-        assert res.numéro() == i;
+    public Etage etage(int i) {
+        assert etageLePlusBas().numero() <= i : "trop bas" + i;
+        assert etageLePlusHaut().numero() >= i : "trop haut" + i;
+        Etage res = tableauDesEtages[i - etageLePlusBas().numero()];
+        assert res.numero() == i;
         return res;
     }
 
     public int nbEtages() {
         int res = tableauDesEtages.length;
-        assert res == (étageLePlusHaut().numéro() - étageLePlusBas().numéro() + 1);
+        assert res == (etageLePlusHaut().numero() - etageLePlusBas().numero() + 1);
         return res;
     }
 
@@ -111,8 +111,8 @@ public class Immeuble extends Global {
 
     public boolean passagerAuDessus(Etage e) {
         assert e != null;
-        for (int i = e.numéro() + 1; i <= étageLePlusHaut().numéro(); i++) {
-            Etage et = étage(i);
+        for (int i = e.numero() + 1; i <= etageLePlusHaut().numero(); i++) {
+            Etage et = etage(i);
             if (et.aDesPassagers())
                 return true;
         }
@@ -121,8 +121,8 @@ public class Immeuble extends Global {
 
     public boolean passagerEnDessous(Etage e) {
         assert e != null;
-        for (int i = étageLePlusBas().numéro(); i < e.numéro(); i++) {
-            Etage et = étage(i);
+        for (int i = etageLePlusBas().numero(); i < e.numero(); i++) {
+            Etage et = etage(i);
             if (et.aDesPassagers())
                 return true;
         }

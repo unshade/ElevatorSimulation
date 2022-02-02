@@ -36,7 +36,7 @@ public class PressRandomNumberGenerator {
 
     private void next() {
     /*
-      Fais avancer sur la valeur aléatoire suivante.
+      Fais avancer sur la valeur aleatoire suivante.
 	*/
         int tmp = (iy % 32) + 1;
         minimalNext();
@@ -46,7 +46,7 @@ public class PressRandomNumberGenerator {
 
     public double doubleSuivant() {
     /*
-	  Donne le double aléatoire suivant.
+	  Donne le double aleatoire suivant.
 	*/
         next();
         return ((double) iy) / 2147483647;
@@ -54,7 +54,7 @@ public class PressRandomNumberGenerator {
 
     public int intSuivant(int maxi) {
 	/*
-	  Donne le int aléatoire suivant dans l'intervalle [1 .. maxi].
+	  Donne le int aleatoire suivant dans l'intervalle [1 .. maxi].
 	*/
         next();
         return (iy % maxi) + 1;

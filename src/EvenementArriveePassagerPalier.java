@@ -1,30 +1,30 @@
 public class EvenementArriveePassagerPalier extends Evenement {
-    /* APP: Arrivée Passager Palier
-       L'instant précis ou un nouveau passager arrive sur un palier donné, dans le but
+    /* APP: Arrivee Passager Palier
+       L'instant precis ou un nouveau passager arrive sur un palier donne, dans le but
        de monter dans la cabine.
     */
 
-    private Etage étage;
+    private Etage etage;
 
     public EvenementArriveePassagerPalier(long d, Etage edd) {
         super(d);
-        étage = edd;
+        etage = edd;
     }
 
     public void afficheDetails(StringBuilder buffer, Immeuble immeuble) {
         buffer.append("APP ");
-        buffer.append(étage.numéro());
+        buffer.append(etage.numero());
     }
 
     public void traiter(Immeuble immeuble, Echeancier echeancier) {
-        assert étage != null;
-        assert immeuble.étage(étage.numéro()) == étage;
-        Passager p = new Passager(date, étage, immeuble);
+        assert etage != null;
+        assert immeuble.etage(etage.numero()) == etage;
+        Passager p = new Passager(date, etage, immeuble);
         Cabine c = immeuble.cabine;
 
         notYetImplemented();
 	/* 
-	if (c.porteOuverte && c.étage == étage) {
+	if (c.porteOuverte && c.etage == etage) {
 	    if (c.intention() == '-') {
 		//notYetImplemented();
 		c.changerIntention(p.sens());
