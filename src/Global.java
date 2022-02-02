@@ -26,7 +26,7 @@ public class Global {
 
     static final int délaiDePatienceAvantSportif = 600;
     /* Temps au bout duquel un passager décide finalement de partir à pieds.
-    */
+     */
 
     static final long tempsPourMonterOuDescendreUnEtageAPieds = 20;
 
@@ -39,10 +39,10 @@ public class Global {
        Vous n'avez pas le droit de programmer une partie tant que le code n'est pas
        réellement utilisé par les tests.
     */
-    public static void notYetImplemented () {
-	assert false : "notYetImplemented";
-	String s = null;
-	s.charAt(0); // Pour forcer le plantage si assert n'est pas en service.
+    public static void notYetImplemented() {
+        assert false : "notYetImplemented";
+        String s = null;
+        s.charAt(0); // Pour forcer le plantage si assert n'est pas en service.
     }
 
     public static boolean isModeParfait() {
