@@ -21,8 +21,25 @@ public class EvenementArriveePassagerPalier extends Evenement {
         assert immeuble.etage(etage.numero()) == etage;
         Passager p = new Passager(date, etage, immeuble);
         Cabine c = immeuble.cabine;
-
-        notYetImplemented();
+        if (c.porteOuverte && c.etage == etage) {
+            if (c.intention() == '-') {
+                c.changerIntention(p.sens());
+                echeancier.ajouter(new EvenementFermeturePorteCabine(date + Global.tempsPourOuvrirOuFermerLesPortes));
+                char fmp = c.faireMonterPassager(p);
+                if (fmp == 'O') {
+                    assert true;
+                }
+                else {
+                    assert false : "impossible";
+                }
+            }
+            else {
+                notYetImplemented();
+            }
+        }
+        else {
+            notYetImplemented();
+        }
 	/* 
 	if (c.porteOuverte && c.etage == etage) {
 	    if (c.intention() == '-') {
