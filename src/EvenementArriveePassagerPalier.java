@@ -1,65 +1,47 @@
 public class EvenementArriveePassagerPalier extends Evenement {
-    /* APP: Arrivee Passager Palier
-       L'instant precis ou un nouveau passager arrive sur un palier donne, dans le but
+    /* APP: Arrivée Passager Palier
+       L'instant précis ou un nouveau passager arrive sur un palier donné, dans le but
        de monter dans la cabine.
     */
 
-    private Etage etage;
+    private Etage étage;
 
     public EvenementArriveePassagerPalier(long d, Etage edd) {
         super(d);
-        etage = edd;
+        étage = edd;
     }
 
     public void afficheDetails(StringBuilder buffer, Immeuble immeuble) {
         buffer.append("APP ");
-        buffer.append(etage.numero());
+        buffer.append(étage.numéro());
     }
 
     public void traiter(Immeuble immeuble, Echeancier echeancier) {
-        assert etage != null;
-        assert immeuble.etage(etage.numero()) == etage;
-        Passager p = new Passager(date, etage, immeuble);
+        assert étage != null;
+        assert immeuble.étage(étage.numéro()) == étage;
+        Passager p = new Passager(date, étage, immeuble);
         Cabine c = immeuble.cabine;
-        if (c.porteOuverte && c.etage == etage) {
+
+        if (c.porteOuverte && c.étage == étage) {
             if (c.intention() == '-') {
+                //notYetImplemented();
                 c.changerIntention(p.sens());
-                echeancier.ajouter(new EvenementFermeturePorteCabine(date + Global.tempsPourOuvrirOuFermerLesPortes));
+                echeancier.ajouter(new EvenementFermeturePorteCabine(date + tempsPourOuvrirOuFermerLesPortes));
                 char fmp = c.faireMonterPassager(p);
+                // Faudrait aussi ajouter le premier PCP...
                 if (fmp == 'O') {
                     assert true;
+                } else {
+                    assert false : "else impossible";
                 }
-                else {
-                    assert false : "impossible";
-                }
-            }
-            else {
+                ;
+            } else {
                 notYetImplemented();
             }
-        }
-        else {
+            ;
+        } else {
             notYetImplemented();
         }
-	/* 
-	if (c.porteOuverte && c.etage == etage) {
-	    if (c.intention() == '-') {
-		//notYetImplemented();
-		c.changerIntention(p.sens());
-		echeancier.ajouter(new EvenementFermeturePorteCabine(date + tempsPourOuvrirOuFermerLesPortes)); 
-		char fmp = c.faireMonterPassager(p);
-		// Faudrait aussi ajouter le premier PCP...
-		if (fmp == 'O') {
-		    assert true;
-		} else {
-		    assert false : "else impossible";
-		};	
-	    } else {
-		notYetImplemented();
-	    };
-	} else {
-	    notYetImplemented();
-	};
-	//*/
 
         assert c.intention() != '-' : "intention impossible";
     }

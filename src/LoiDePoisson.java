@@ -6,12 +6,12 @@
 
 public class LoiDePoisson {
     /**
-     * Temps moyen entre deux occurrences d'un même evenement.
+     * Temps moyen entre deux occurrences d'un même événement.
      */
     private long tempsMoyen;
 
     /**
-     * Generateur aleatoire uniforme.
+     * Générateur aléatoire uniforme.
      */
     private PressRandomNumberGenerator random;
 
