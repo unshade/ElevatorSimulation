@@ -42,6 +42,8 @@ public class EvenementArriveePassagerPalier extends Evenement {
         } else {
             notYetImplemented();
         }
+        date += étage.arrivéeSuivante();
+        echeancier.ajouter(this);
 
         assert c.intention() != '-' : "intention impossible";
     }
