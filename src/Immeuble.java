@@ -2,7 +2,7 @@ public class Immeuble extends Global {
     /* Dans cette classe, vous pouvez ajouter/enlever/modifier/corriger les méthodes, mais vous ne
        pouvez pas ajouter des attributs (variables d'instance).
     */
-    
+
     private Etage[] tableauDesEtages;
     /* Les étages, dans l'ordre de leur numérotation. Aucun null dans ce tableau.
        Comme toute les collections, il ne faut pas l'exporter.
@@ -13,17 +13,17 @@ public class Immeuble extends Global {
     private Etage niveauDuSol; // le niveau 0 en général.
 
     public long cumulDesTempsDeTransport = 0;
-    
+
     public long nombreTotalDesPassagersSortis = 0;
 
     public Etage étageLePlusBas() {
-	Etage res = tableauDesEtages[0];
+        Etage res = tableauDesEtages[0];
         assert res != null;
-        return res ;
+        return res;
     }
 
     public Etage étageLePlusHaut() {
-	Etage res = tableauDesEtages[tableauDesEtages.length - 1];
+        Etage res = tableauDesEtages[tableauDesEtages.length - 1];
         assert res != null;
         return res;
     }
@@ -35,7 +35,7 @@ public class Immeuble extends Global {
     }
 
     public Immeuble(Echeancier echeancier) {
-	Etage e = null;
+        Etage e = null;
         tableauDesEtages = new Etage[9];
         int n = -1;
         for (int i = 0; i < tableauDesEtages.length; i++) {
@@ -43,8 +43,8 @@ public class Immeuble extends Global {
             if (n != 0) {
                 fa = fa * (tableauDesEtages.length - 1);
             }
-	    e = new Etage(n, fa, this);
-	    tableauDesEtages[i] = e;
+            e = new Etage(n, fa, this);
+            tableauDesEtages[i] = e;
             if (n == 0) {
                 niveauDuSol = e;
             }
@@ -55,36 +55,36 @@ public class Immeuble extends Global {
             long date = etage.arrivéeSuivante();
             echeancier.ajouter(new EvenementArriveePassagerPalier(date, etage));
         }
-	e = étageLePlusHaut();
+        e = étageLePlusHaut();
         cabine = new Cabine(niveauDuSol());
-	e = étage(e.numéro() - 1);
+        e = étage(e.numéro() - 1);
     }
 
     public void affiche(StringBuilder buffer) {
-	buffer.setLength(0);
+        buffer.setLength(0);
         buffer.append("Ascenseur en mode ");
-	buffer.append(modeParfait ? "parfait" : "infernal");
-	while (buffer.length() < 80) {
-	    buffer.append(' ');
-	}
-	buffer.append("| Escalier pour sportifs");
-	System.out.println(buffer);
+        buffer.append(modeParfait ? "parfait" : "infernal");
+        while (buffer.length() < 80) {
+            buffer.append(' ');
+        }
+        buffer.append("| Escalier pour sportifs");
+        System.out.println(buffer);
         int i = étageLePlusHaut().numéro();
         while (i >= étageLePlusBas().numéro()) {
-	    buffer.setLength(0);
+            buffer.setLength(0);
             étage(i).afficheDans(buffer);
-	    System.out.println(buffer);
+            System.out.println(buffer);
             i--;
         }
-	buffer.setLength(0);
+        buffer.setLength(0);
         cabine.afficheDans(buffer);
-	buffer.append("\nCumul des temps de transport: ");
-	buffer.append(cumulDesTempsDeTransport);
-	buffer.append("\nNombre total des passagers sortis: ");
-	buffer.append(nombreTotalDesPassagersSortis);
+        buffer.append("\nCumul des temps de transport: ");
+        buffer.append(cumulDesTempsDeTransport);
+        buffer.append("\nNombre total des passagers sortis: ");
+        buffer.append(nombreTotalDesPassagersSortis);
         buffer.append("\nRatio cumul temps / nb passagers : ");
-	buffer.append(nombreTotalDesPassagersSortis == 0 ? 0 : cumulDesTempsDeTransport / nombreTotalDesPassagersSortis);
-	System.out.println(buffer);
+        buffer.append(nombreTotalDesPassagersSortis == 0 ? 0 : cumulDesTempsDeTransport / nombreTotalDesPassagersSortis);
+        System.out.println(buffer);
     }
 
     public Etage étage(int i) {
@@ -100,32 +100,32 @@ public class Immeuble extends Global {
         assert res == (étageLePlusHaut().numéro() - étageLePlusBas().numéro() + 1);
         return res;
     }
-    
-    public void ajouterCumul(long t){
-    	cumulDesTempsDeTransport+=t;
+
+    public void ajouterCumul(long t) {
+        cumulDesTempsDeTransport += t;
     }
-    
-    public void ajouterPassagerSorti(){
-    	nombreTotalDesPassagersSortis++;
+
+    public void ajouterPassagerSorti() {
+        nombreTotalDesPassagersSortis++;
     }
-    
-    public boolean passagerAuDessus(Etage e){
-    	assert e != null;
-    	for (int i=e.numéro()+1 ; i <= étageLePlusHaut().numéro() ; i++) {
-	    Etage et = étage(i);
-	    if(et.aDesPassagers())
-		return true;
-    	}
-    	return false;
+
+    public boolean passagerAuDessus(Etage e) {
+        assert e != null;
+        for (int i = e.numéro() + 1; i <= étageLePlusHaut().numéro(); i++) {
+            Etage et = étage(i);
+            if (et.aDesPassagers())
+                return true;
+        }
+        return false;
     }
-    
-    public boolean passagerEnDessous(Etage e){
-    	assert e != null;
-    	for (int i = étageLePlusBas().numéro() ; i < e.numéro() ; i++) {
-	    Etage et = étage(i);
-	    if (et.aDesPassagers())
-  		return true;
-     	}
-    	return false;
+
+    public boolean passagerEnDessous(Etage e) {
+        assert e != null;
+        for (int i = étageLePlusBas().numéro(); i < e.numéro(); i++) {
+            Etage et = étage(i);
+            if (et.aDesPassagers())
+                return true;
+        }
+        return false;
     }
 }

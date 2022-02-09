@@ -7,26 +7,43 @@ public class EvenementFermeturePorteCabine extends Evenement {
     */
 
     public EvenementFermeturePorteCabine(long d) {
-	super(d);
+        super(d);
     }
 
     public void afficheDetails(StringBuilder buffer, Immeuble immeuble) {
-	buffer.append("FPC");
+        buffer.append("FPC");
     }
 
     public void traiter(Immeuble immeuble, Echeancier echeancier) {
-	Cabine cabine = immeuble.cabine;
-	assert cabine.porteOuverte : "précondition";
+        Cabine cabine = immeuble.cabine;
+        assert cabine.porteOuverte : "précondition";
 
-	//cabine.porteOuverte = false;
-	notYetImplemented();
+        cabine.porteOuverte = false;
 
-	assert (! cabine.porteOuverte) : "postcondition";
+
+        assert (!cabine.porteOuverte) : "postcondition";
+        Etage etage = null;
+
+        if (cabine.intention() == 'v') {
+            if (cabine.étage != immeuble.étageLePlusBas()) {
+                etage = immeuble.étage(cabine.étage.numéro() - 1);
+            }
+        }
+        if (cabine.intention() == '^') {
+            if (cabine.étage != immeuble.étageLePlusHaut()) {
+                etage = immeuble.étage(cabine.étage.numéro() + 1);
+            }
+
+        }
+
+        long dte = date;
+        dte += Global.tempsPourBougerLaCabineDUnEtage;
+        echeancier.ajouter(new EvenementPassageCabinePalier(dte, etage));
     }
 
 
-    public void setDate(long d){
-	this.date = d;
+    public void setDate(long d) {
+        this.date = d;
     }
 
 }
