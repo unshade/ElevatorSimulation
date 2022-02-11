@@ -21,20 +21,24 @@ public class EvenementPassageCabinePalier extends Evenement {
         assert !cabine.porteOuverte;
         assert étage.numéro() != cabine.étage.numéro();
         cabine.étage = this.étage;
-        Etage etage = null;
-        if (cabine.intention() == 'v') {
-            if (cabine.étage != immeuble.étageLePlusBas()) {
-                etage = immeuble.étage(cabine.étage.numéro() - 1);
-            }
-        }
-        if (cabine.intention() == '^') {
-            if (cabine.étage != immeuble.étageLePlusHaut()) {
-                etage = immeuble.étage(cabine.étage.numéro() + 1);
-            }
+        Etage etg = null;
+        if (cabine.passagersVeulentDescendre()) {
+            echeancier.ajouter(new EvenementOuverturePorteCabine(date + Global.tempsPourOuvrirOuFermerLesPortes));
 
+        } else {
+            long dte = date;
+            if (cabine.intention() == 'v') {
+                if (cabine.étage != immeuble.étageLePlusBas()) {
+                    etg = immeuble.étage(cabine.étage.numéro() - 1);
+                }
+            }
+            else if (cabine.intention() == '^') {
+                if (cabine.étage != immeuble.étageLePlusHaut()) {
+                    etg = immeuble.étage(cabine.étage.numéro() + 1);
+                }
+            }
+            dte += Global.tempsPourBougerLaCabineDUnEtage;
+            echeancier.ajouter(new EvenementPassageCabinePalier(dte, etg));
         }
-        long dte = date;
-        dte += Global.tempsPourBougerLaCabineDUnEtage;
-        echeancier.ajouter(new EvenementPassageCabinePalier(dte, etage));
     }
 }
