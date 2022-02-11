@@ -17,28 +17,43 @@ public class EvenementPassageCabinePalier extends Evenement {
     }
 
     public void traiter(Immeuble immeuble, Echeancier echeancier) {
+
+        //Cabine de l'immeuble
         Cabine cabine = immeuble.cabine;
+
+        //Asserssions
         assert !cabine.porteOuverte;
         assert étage.numéro() != cabine.étage.numéro();
+
+        //Actualiser l'étage courrant
         cabine.étage = this.étage;
+
+        //Etage futur
         Etage etg = null;
+
+        //Si les passagers veulent descendre, dans ce cas faire une ouverture de porte
         if (cabine.passagersVeulentDescendre()) {
             echeancier.ajouter(new EvenementOuverturePorteCabine(date + Global.tempsPourOuvrirOuFermerLesPortes));
 
-        } else {
-            long dte = date;
+        }
+        //Sinon regarder si la cabine doit monter / descendre et faire un passage de palier
+        else {
             if (cabine.intention() == 'v') {
+
+                //Si on doit descendre, regarder qu'on est pas au premier étage (sinon on va sous terre)
                 if (cabine.étage != immeuble.étageLePlusBas()) {
                     etg = immeuble.étage(cabine.étage.numéro() - 1);
                 }
-            }
-            else if (cabine.intention() == '^') {
+            } else if (cabine.intention() == '^') {
+                
+                //Si on doit monter, regarder qu'on est pas au dernier étage (Sinon on transperce le plafond)
                 if (cabine.étage != immeuble.étageLePlusHaut()) {
                     etg = immeuble.étage(cabine.étage.numéro() + 1);
                 }
             }
-            dte += Global.tempsPourBougerLaCabineDUnEtage;
-            echeancier.ajouter(new EvenementPassageCabinePalier(dte, etg));
+
+            //Une fois qu'on a sait si on doit monter ou descendre, faire un passage de pallier
+            echeancier.ajouter(new EvenementPassageCabinePalier(date + Global.tempsPourBougerLaCabineDUnEtage, etg));
         }
     }
 }

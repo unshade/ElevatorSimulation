@@ -15,30 +15,36 @@ public class EvenementFermeturePorteCabine extends Evenement {
     }
 
     public void traiter(Immeuble immeuble, Echeancier echeancier) {
+
+        //Cabine de l'immeuble
         Cabine cabine = immeuble.cabine;
+
+        //Asserssions
         assert cabine.porteOuverte : "précondition";
-
         cabine.porteOuverte = false;
-
-
         assert (!cabine.porteOuverte) : "postcondition";
-        Etage etage = null;
 
+        //Etage futur
+        Etage etge = null;
+
+        //Faire passer le pallier en fonction de l'intention
         if (cabine.intention() == 'v') {
+
+            //Si on doit descendre, regarder qu'on est pas au premier étage (sinon on va sous terre)
             if (cabine.étage != immeuble.étageLePlusBas()) {
-                etage = immeuble.étage(cabine.étage.numéro() - 1);
+                etge = immeuble.étage(cabine.étage.numéro() - 1);
             }
         }
         if (cabine.intention() == '^') {
-            if (cabine.étage != immeuble.étageLePlusHaut()) {
-                etage = immeuble.étage(cabine.étage.numéro() + 1);
-            }
 
+            //Si on doit monter, regarder qu'on est pas au dernier étage (Sinon on transperce le plafond)
+            if (cabine.étage != immeuble.étageLePlusHaut()) {
+                etge = immeuble.étage(cabine.étage.numéro() + 1);
+            }
         }
 
-        long dte = date;
-        dte += Global.tempsPourBougerLaCabineDUnEtage;
-        echeancier.ajouter(new EvenementPassageCabinePalier(dte, etage));
+        //Une fois qu'on a sait si on doit monter ou descendre, faire un passage de pallier
+        echeancier.ajouter(new EvenementPassageCabinePalier(date + Global.tempsPourBougerLaCabineDUnEtage, etge));
     }
 
 

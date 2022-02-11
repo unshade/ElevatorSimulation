@@ -12,15 +12,16 @@ public class EvenementOuverturePorteCabine extends Evenement {
     }
 
     public void traiter(Immeuble immeuble, Echeancier echeancier) {
-        Cabine cabine = immeuble.cabine;
-        Etage étage = cabine.étage;
-        assert !cabine.porteOuverte;
 
+        //Cabine de l'immeuble
+        Cabine cabine = immeuble.cabine;
+
+        //Asserssions
+        assert !cabine.porteOuverte;
         assert cabine.porteOuverte;
 
-        long dte = date;
-        dte += Global.tempsPourOuvrirOuFermerLesPortes;
-        echeancier.ajouter(new EvenementOuverturePorteCabine(dte));
+        //Ouvrir les portes
+        echeancier.ajouter(new EvenementOuverturePorteCabine(date + Global.tempsPourOuvrirOuFermerLesPortes));
     }
 
 }
