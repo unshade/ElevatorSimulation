@@ -20,8 +20,9 @@ public class EvenementPassageCabinePalier extends Evenement {
         Cabine cabine = immeuble.cabine;
         assert !cabine.porteOuverte;
         assert étage.numéro() != cabine.étage.numéro();
+        Etage eta = cabine.étage;
 
-        notYetImplemented();
 
+        echeancier.ajouter(this);
     }
 }
