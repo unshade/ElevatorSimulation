@@ -34,7 +34,6 @@ public class EvenementPassageCabinePalier extends Evenement {
         //Si les passagers veulent descendre, dans ce cas faire une ouverture de porte
         if (cabine.passagersVeulentDescendre()) {
             echeancier.ajouter(new EvenementOuverturePorteCabine(date + Global.tempsPourOuvrirOuFermerLesPortes));
-
         }
         //Sinon regarder si la cabine doit monter / descendre et faire un passage de palier
         else {
@@ -45,7 +44,7 @@ public class EvenementPassageCabinePalier extends Evenement {
                     etg = immeuble.étage(cabine.étage.numéro() - 1);
                 }
             } else if (cabine.intention() == '^') {
-                
+
                 //Si on doit monter, regarder qu'on est pas au dernier étage (Sinon on transperce le plafond)
                 if (cabine.étage != immeuble.étageLePlusHaut()) {
                     etg = immeuble.étage(cabine.étage.numéro() + 1);
