@@ -34,13 +34,16 @@ public class EvenementArriveePassagerPalier extends Evenement {
                 } else {
                     assert false : "else impossible";
                 }
-                ;
             } else {
                 notYetImplemented();
             }
-            ;
         } else {
-            notYetImplemented();
+            if (this.étage != c.étage) {
+                if (this.étage.numéro() > c.étage.numéro()) {
+                    c.changerIntention('^');
+                } else c.changerIntention('v');
+                echeancier.ajouter(new EvenementPassageCabinePalier(date + Global.tempsPourBougerLaCabineDUnEtage, this.étage));
+            }
         }
         date += étage.arrivéeSuivante();
         echeancier.ajouter(this);

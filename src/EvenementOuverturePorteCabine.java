@@ -16,12 +16,16 @@ public class EvenementOuverturePorteCabine extends Evenement {
         //Cabine de l'immeuble
         Cabine cabine = immeuble.cabine;
 
+
+        if(cabine.passagersVeulentDescendre()) cabine.changerIntention('-');
         //Asserssions
         assert !cabine.porteOuverte;
-        assert cabine.porteOuverte;
 
-        //Ouvrir les portes
-        echeancier.ajouter(new EvenementOuverturePorteCabine(date + Global.tempsPourOuvrirOuFermerLesPortes));
+        cabine.porteOuverte = true;
+
+        cabine.faireDescendrePassagers(immeuble, date);
+
+
     }
 
 }
