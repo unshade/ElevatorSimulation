@@ -32,7 +32,7 @@ public class EvenementPassageCabinePalier extends Evenement {
         Etage etg = null;
 
         //Si les passagers veulent descendre, dans ce cas faire une ouverture de porte
-        if (cabine.passagersVeulentDescendre()) {
+        if (cabine.passagersVeulentDescendre() || étage.aDesPassagers()) {
             echeancier.ajouter(new EvenementOuverturePorteCabine(date + Global.tempsPourOuvrirOuFermerLesPortes));
         }
         //Sinon regarder si la cabine doit monter / descendre et faire un passage de palier
