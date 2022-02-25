@@ -38,13 +38,11 @@ public class EvenementPassageCabinePalier extends Evenement {
         //Sinon regarder si la cabine doit monter / descendre et faire un passage de palier
         else {
             if (cabine.intention() == 'v') {
-
                 //Si on doit descendre, regarder qu'on est pas au premier étage (sinon on va sous terre)
                 if (cabine.étage != immeuble.étageLePlusBas()) {
                     etg = immeuble.étage(cabine.étage.numéro() - 1);
                 }
             } else if (cabine.intention() == '^') {
-
                 //Si on doit monter, regarder qu'on est pas au dernier étage (Sinon on transperce le plafond)
                 if (cabine.étage != immeuble.étageLePlusHaut()) {
                     etg = immeuble.étage(cabine.étage.numéro() + 1);
