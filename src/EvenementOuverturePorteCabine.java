@@ -15,15 +15,18 @@ public class EvenementOuverturePorteCabine extends Evenement {
 
         //Cabine de l'immeuble
         Cabine cabine = immeuble.cabine;
-	int c;
+        int c;
         assert !cabine.porteOuverte;
-	assert (cabine.intention() != '-');
+        assert (cabine.intention() != '-');
         cabine.porteOuverte = true;
         c = cabine.faireDescendrePassagers(immeuble, date);
-	cabine.recalculeIntention();
-	c += cabine.étage.faireEntrerPassagers(cabine);
-	notYetImplemented();
-	// OPC selon c
+        cabine.recalculeIntention(immeuble);
+        c += cabine.étage.faireEntrerPassagers(cabine);
+	if (cabine.intention() != '-') {
+	    echeancier.ajouter (new EvenementFermeturePorteCabine(date + tempsPourOuvrirOuFermerLesPortes));
+	};
+        //notYetImplemented();
+        // OPC selon c
     }
 
 }

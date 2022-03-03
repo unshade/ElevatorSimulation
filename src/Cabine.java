@@ -112,28 +112,72 @@ public class Cabine extends Global {
         return false;
     }
 
-    public void recalculeIntention() {
+    public void recalculeIntention(Immeuble immeuble) {
 	assert (intention != '-');
 	if (intention == '^') {
+	    boolean pcsd = false;	    
 	    for (Passager p : tableauPassager) {
-            if (p != null) {
-                switch (p.sens()){
-                    case '^':
-
-                        break;
-                    case 'v':
-
-                        break;
-                    default:
-                }
-            }
-        }
-	    {
-
+		if (p != null) {
+		    assert (p.étageDestination() != étage);
+		    if (p.sens() == '^') {
+                        return;
+		    } else {
+			assert (p.sens() == 'v');
+			pcsd=true;
+		    }
+		}
 	    }
-	    notYetImplemented(); // regarder dans les étags au dessu
+	    if (étage == immeuble.étageLePlusHaut()) {
+		notYetImplemented();
+	    } else {
+		if (immeuble.passagerAuDessus(étage)) {
+		    return;
+		}
+		if (pcsd) {
+		    intention = 'v';
+		    return;
+		}
+	    }
+	    if (étage.aDesPassagersQuiMontent()) {
+		return; 
+	    }
+	    if (étage.aDesPassagersQuiDescendent()) {
+		intention = 'v';
+		return; 
+	    }
 	} else {
-	    notYetImplemented();
+	    assert (intention == 'v');
+	    boolean pcsm = false;
+	    for (Passager p : tableauPassager) {
+		if (p != null) {
+		    assert (p.étageDestination() != étage);
+		    if (p.sens() == '^') {
+			pcsm = true;
+		    } else {
+			assert (p.sens() == 'v');
+                        return;
+		    }
+		}
+	    }
+	    if (étage == immeuble.étageLePlusBas()) {
+		notYetImplemented();
+	    } else {
+		if (immeuble.passagerEnDessous(étage)) {
+		    return;
+		}
+		if (pcsm) {
+		    intention = '^';
+		    return;
+		}
+	    }
+	    if (étage.aDesPassagersQuiMontent()) {
+		intention = '^';
+		return; 
+	    }
+	    if (étage.aDesPassagersQuiDescendent()) {
+		return; 
+	    }
 	}
+	intention = '-';
     }
 }
