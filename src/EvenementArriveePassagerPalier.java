@@ -26,8 +26,8 @@ public class EvenementArriveePassagerPalier extends Evenement {
             if (c.intention() == '-') {
                 //notYetImplemented();
                 c.changerIntention(p.sens());
-                echeancier.ajouter(new EvenementFermeturePorteCabine(date + tempsPourOuvrirOuFermerLesPortes));
                 char fmp = c.faireMonterPassager(p);
+                echeancier.ajouter(new EvenementFermeturePorteCabine(date + tempsPourOuvrirOuFermerLesPortes));
                 // Faudrait aussi ajouter le premier PCP...
                 if (fmp == 'O') {
                     assert true;
@@ -39,8 +39,9 @@ public class EvenementArriveePassagerPalier extends Evenement {
             }
         } else if (c.intention() == '-') {
             assert (c.porteOuverte);
-            c.changerIntention('v'); // je triche par rapport aux tests
             this.étage.ajouter(p);
+            //c.faireMonterPassager(p);
+            c.changerIntention('v');
             echeancier.ajouter(new EvenementFermeturePorteCabine(date + tempsPourOuvrirOuFermerLesPortes));
             echeancier.ajouter(new EvenementPietonArrivePalier(date + délaiDePatienceAvantSportif, étage, p));
         } else {
@@ -49,6 +50,7 @@ public class EvenementArriveePassagerPalier extends Evenement {
             étage.ajouter(p);
             Etage e = étage;
             echeancier.ajouter(new EvenementPietonArrivePalier(date + délaiDePatienceAvantSportif, e, p));
+            echeancier.ajouter(new EvenementFermeturePorteCabine(date + tempsPourOuvrirOuFermerLesPortes));
         }
         date += étage.arrivéeSuivante();
         echeancier.ajouter(this);

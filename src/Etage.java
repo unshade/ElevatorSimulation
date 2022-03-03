@@ -118,4 +118,9 @@ public class Etage extends Global {
         return (!passagers.isEmpty());
     }
 
+    public int faireEntrerPassagers(Cabine c) {
+	notYetImplemented();
+	return 2;
+    }
+
 }

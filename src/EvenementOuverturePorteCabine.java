@@ -15,17 +15,15 @@ public class EvenementOuverturePorteCabine extends Evenement {
 
         //Cabine de l'immeuble
         Cabine cabine = immeuble.cabine;
-
-
-        if(cabine.passagersVeulentDescendre()) cabine.changerIntention('-');
-        //Asserssions
+	int c;
         assert !cabine.porteOuverte;
-
+	assert (cabine.intention() != '-');
         cabine.porteOuverte = true;
-
-        cabine.faireDescendrePassagers(immeuble, date);
-
-
+        c = cabine.faireDescendrePassagers(immeuble, date);
+	cabine.recalculeIntention();
+	c += cabine.étage.faireEntrerPassagers(cabine);
+	notYetImplemented();
+	// OPC selon c
     }
 
 }
