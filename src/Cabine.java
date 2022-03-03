@@ -115,12 +115,21 @@ public class Cabine extends Global {
     public void recalculeIntention() {
 	assert (intention != '-');
 	if (intention == '^') {
-	    foreach (tableauPassager:p) {
-		if (p != null) {
-		    if (p.étageDestination().numéro() > étage.nunero) {
-			return;
-		    }
-		}
+	    for (Passager p : tableauPassager) {
+            if (p != null) {
+                switch (p.sens()){
+                    case '^':
+
+                        break;
+                    case 'v':
+
+                        break;
+                    default:
+                }
+            }
+        }
+	    {
+
 	    }
 	    notYetImplemented(); // regarder dans les étags au dessu
 	} else {
