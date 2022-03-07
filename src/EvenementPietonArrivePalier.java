@@ -24,4 +24,8 @@ public class EvenementPietonArrivePalier extends Evenement {
         passager = pa;
     }
 
+    public Passager getPassager(){
+        return this.passager;
+    }
+
 }
