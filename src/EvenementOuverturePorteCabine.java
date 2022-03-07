@@ -21,12 +21,13 @@ public class EvenementOuverturePorteCabine extends Evenement {
         cabine.porteOuverte = true;
         c = cabine.faireDescendrePassagers(immeuble, date);
         cabine.recalculeIntention(immeuble);
-        c += cabine.étage.faireEntrerPassagers(cabine);
-	if (cabine.intention() != '-') {
-	    echeancier.ajouter (new EvenementFermeturePorteCabine(date + tempsPourOuvrirOuFermerLesPortes));
-	};
+        c += cabine.étage.faireEntrerPassagers(cabine, echeancier);
+        if (cabine.intention() != '-') {
+            echeancier.ajouter(new EvenementFermeturePorteCabine(date + c * Global.tempsPourEntrerOuSortirDeLaCabine + tempsPourOuvrirOuFermerLesPortes));
+        }
         //notYetImplemented();
         // OPC selon c
+
     }
 
 }
