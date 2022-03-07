@@ -42,15 +42,14 @@ public class EvenementArriveePassagerPalier extends Evenement {
             this.étage.ajouter(p);
             //c.faireMonterPassager(p);
             c.changerIntention('v');
-            echeancier.ajouter(new EvenementFermeturePorteCabine(date + tempsPourOuvrirOuFermerLesPortes));
             echeancier.ajouter(new EvenementPietonArrivePalier(date + délaiDePatienceAvantSportif, étage, p));
+            echeancier.ajouter(new EvenementFermeturePorteCabine(date + tempsPourOuvrirOuFermerLesPortes));
         } else {
             assert (c.intention() != '-');
             assert (!c.porteOuverte);
             étage.ajouter(p);
             Etage e = étage;
             echeancier.ajouter(new EvenementPietonArrivePalier(date + délaiDePatienceAvantSportif, e, p));
-            echeancier.ajouter(new EvenementFermeturePorteCabine(date + tempsPourOuvrirOuFermerLesPortes));
         }
         date += étage.arrivéeSuivante();
         echeancier.ajouter(this);
