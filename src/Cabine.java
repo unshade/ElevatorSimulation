@@ -141,11 +141,11 @@ public class Cabine extends Global {
             if (étage.aDesPassagersQuiMontent()) {
                 return;
             }
-            if (immeuble.passagerEnDessous(étage)) {
+            if (étage.aDesPassagersQuiDescendent()) {
                 intention = 'v';
                 return;
             }
-            if (étage.aDesPassagersQuiDescendent()) {
+            if (immeuble.passagerEnDessous(étage)) {
                 intention = 'v';
                 return;
             }
@@ -174,11 +174,11 @@ public class Cabine extends Global {
                     return;
                 }
             }
-            if (étage.aDesPassagersQuiMontent()) {
-                intention = '^';
+            if (étage.aDesPassagersQuiDescendent()) {
                 return;
             }
-            if (étage.aDesPassagersQuiDescendent()) {
+            if (étage.aDesPassagersQuiMontent()) {
+                intention = '^';
                 return;
             }
         }
