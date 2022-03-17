@@ -141,6 +141,10 @@ public class Cabine extends Global {
             if (étage.aDesPassagersQuiMontent()) {
                 return;
             }
+            if (immeuble.passagerEnDessous(étage)) {
+                intention = 'v';
+                return;
+            }
             if (étage.aDesPassagersQuiDescendent()) {
                 intention = 'v';
                 return;
