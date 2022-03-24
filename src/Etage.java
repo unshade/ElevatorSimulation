@@ -129,12 +129,16 @@ public class Etage extends Global {
                 ech.supprimePAP(p);
                 compteurSortie++;
             } else {
+                i++;
+                /*
                 if (res == 'I') {
                     i ++;
                 } else {
                     assert res == 'P';
                     return compteurSortie;
                 }
+
+                 */
             }
         }
         return compteurSortie;

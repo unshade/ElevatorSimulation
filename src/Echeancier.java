@@ -91,6 +91,7 @@ public class Echeancier extends Global {
                     listeEvenements.remove(index);
                     trouve = true;
                 }
+                index++;
             } else {
                 index++;
             }
