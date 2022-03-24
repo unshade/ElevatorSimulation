@@ -46,7 +46,7 @@ public class EvenementArriveePassagerPalier extends Evenement {
             echeancier.ajouter(new EvenementFermeturePorteCabine(date + tempsPourOuvrirOuFermerLesPortes));
         } else {
             assert (c.intention() != '-');
-            assert (!c.porteOuverte);
+            //assert (!c.porteOuverte);
             étage.ajouter(p);
             Etage e = étage;
             echeancier.ajouter(new EvenementPietonArrivePalier(date + délaiDePatienceAvantSportif, e, p));

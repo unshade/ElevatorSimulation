@@ -112,6 +112,21 @@ public class Cabine extends Global {
         return false;
     }
 
+
+    public boolean doitSeStopper() {
+        if (passagersVeulentDescendre()) return true;
+        if(étage.aDesPassagers()) {
+            for (Passager p : tableauPassager) {
+                if (p != null) {
+                    if (p.sens() != intention) return false;
+                }
+            }
+            return tableauPassager.length > 0;
+        }
+        return false;
+    }
+
+
     public void recalculeIntention(Immeuble immeuble) {
         assert (intention != '-');
         if (intention == '^') {
@@ -128,7 +143,8 @@ public class Cabine extends Global {
                 }
             }
             if (étage == immeuble.étageLePlusHaut()) {
-                notYetImplemented();
+                intention = 'v';
+                return;
             } else {
                 if (immeuble.passagerAuDessus(étage)) {
                     return;
@@ -164,7 +180,8 @@ public class Cabine extends Global {
                 }
             }
             if (étage == immeuble.étageLePlusBas()) {
-                notYetImplemented();
+                intention = '^';
+                return;
             } else {
                 if (immeuble.passagerEnDessous(étage)) {
                     return;
