@@ -113,15 +113,21 @@ public class Cabine extends Global {
     }
 
 
-    public boolean doitSeStopper() {
+    public boolean doitSeStopper(Immeuble immeuble) {
         if (passagersVeulentDescendre()) return true;
-        if(étage.aDesPassagers()) {
-            for (Passager p : tableauPassager) {
-                if (p != null) {
-                    if (p.sens() != intention) return false;
+        if (étage.aDesPassagers()) {
+            if (Global.modeParfait) {
+                if (intention == '^') {
+                    if (immeuble.passagerAuDessus(étage)) {
+                        return étage.aDesPassagersQuiMontent();
+                    } else return true;
                 }
-            }
-            return tableauPassager.length > 0;
+                if (intention == 'v') {
+                    if (immeuble.passagerEnDessous(étage)) {
+                        return étage.aDesPassagersQuiDescendent();
+                    } else return true;
+                }
+            } else return true;
         }
         return false;
     }
