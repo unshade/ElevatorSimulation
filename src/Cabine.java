@@ -119,13 +119,31 @@ public class Cabine extends Global {
             if (Global.modeParfait) {
                 if (intention == '^') {
                     if (immeuble.passagerAuDessus(étage)) {
-                        return étage.aDesPassagersQuiMontent();
-                    } else return true;
+                        return étage.aDesPassagersQuiMontent() && étage == immeuble.étageLePlusHaut();
+                    } else {
+                        for (Passager p : tableauPassager) {
+                            if (p != null) {
+                                if (p.sens() == '^') {
+                                    return false;
+                                }
+                            }
+                        }
+                        return true;
+                    }
                 }
                 if (intention == 'v') {
                     if (immeuble.passagerEnDessous(étage)) {
-                        return étage.aDesPassagersQuiDescendent();
-                    } else return true;
+                        return étage.aDesPassagersQuiDescendent() && étage == immeuble.étageLePlusBas();
+                    } else {
+                        for (Passager p : tableauPassager) {
+                            if (p != null) {
+                                if (p.sens() == 'v') {
+                                    return false;
+                                }
+                            }
+                        }
+                        return true;
+                    }
                 }
             } else return true;
         }
