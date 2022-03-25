@@ -35,18 +35,13 @@ public class EvenementArriveePassagerPalier extends Evenement {
                     assert false : "else impossible";
                 }
             } else {
-                étage.ajouter(p);
-                if (c.intention() == '-') {
-                    if (p.étageDépart().numéro() > c.étage.numéro()) {
-                        c.changerIntention('^');
-                    } else {
-                        c.changerIntention('v');
-                    }
-                    if (c.porteOuverte) {
-                        echeancier.ajouter(new EvenementFermeturePorteCabine(date + tempsPourOuvrirOuFermerLesPortes));
-                    }
+                char fmp = c.faireMonterPassager(p);
+                if (fmp == 'O') {
+                    echeancier.decalerFPC();
+                } else {
+                    étage.ajouter(p);
+                    echeancier.ajouter(new EvenementPietonArrivePalier(date + délaiDePatienceAvantSportif, étage, p));
                 }
-                echeancier.ajouter(new EvenementPietonArrivePalier(date + délaiDePatienceAvantSportif, étage, p));
             }
         } else if (c.intention() == '-') {
             assert (c.porteOuverte);
