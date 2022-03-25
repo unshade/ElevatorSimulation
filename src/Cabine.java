@@ -119,7 +119,7 @@ public class Cabine extends Global {
             if (Global.modeParfait) {
                 if (intention == '^') {
                     if (immeuble.passagerAuDessus(étage)) {
-                        return étage.aDesPassagersQuiMontent() && étage == immeuble.étageLePlusHaut();
+                        return étage.aDesPassagersQuiMontent() && étage != immeuble.étageLePlusHaut();
                     } else {
                         for (Passager p : tableauPassager) {
                             if (p != null) {
@@ -133,7 +133,7 @@ public class Cabine extends Global {
                 }
                 if (intention == 'v') {
                     if (immeuble.passagerEnDessous(étage)) {
-                        return étage.aDesPassagersQuiDescendent() && étage == immeuble.étageLePlusBas();
+                        return étage.aDesPassagersQuiDescendent() && étage != immeuble.étageLePlusBas();
                     } else {
                         for (Passager p : tableauPassager) {
                             if (p != null) {
