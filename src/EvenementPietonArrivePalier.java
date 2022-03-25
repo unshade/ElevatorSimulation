@@ -15,7 +15,29 @@ public class EvenementPietonArrivePalier extends Evenement {
 
 
     public void traiter(Immeuble immeuble, Echeancier echeancier) {
-        notYetImplemented();
+        if (étage != passager.étageDestination()) {
+            étage.ajouterPieton(passager);
+            étage.supprimerPassager(passager);
+
+            // ajouter le pieton a l etage actuel
+
+            if (passager.sens() == '^') {
+                étage.supprimerPietonDessous(passager);
+                étage = immeuble.étage(étage.numéro() + 1);
+            } else {
+                étage.supprimerPietonDessus(passager);
+                étage = immeuble.étage(étage.numéro() - 1);
+            }
+            echeancier.ajouter(new EvenementPietonArrivePalier(date + tempsPourMonterOuDescendreUnEtageAPieds, étage, passager));
+        } else {
+            if (passager.sens() == '^') {
+                étage.supprimerPietonDessous(passager);
+            } else {
+                étage.supprimerPietonDessus(passager);
+            }
+            étage.supprimerPieton(passager);
+        }
+        // retire pieton ancien etage
     }
 
     public EvenementPietonArrivePalier(long d, Etage edd, Passager pa) {
@@ -24,7 +46,7 @@ public class EvenementPietonArrivePalier extends Evenement {
         passager = pa;
     }
 
-    public Passager getPassager(){
+    public Passager getPassager() {
         return this.passager;
     }
 

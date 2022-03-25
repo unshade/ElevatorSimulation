@@ -144,4 +144,23 @@ public class Etage extends Global {
         return compteurSortie;
     }
 
+    public void ajouterPieton(Passager pieton){
+        pietons.add(pieton);
+    }
+
+    public void supprimerPietonDessous(Passager pieton) {
+        immeuble.étage(this.numéro() - 1).pietons.remove(pieton);
+    }
+
+    public void supprimerPietonDessus(Passager pieton) {
+        immeuble.étage(this.numéro() + 1).pietons.remove(pieton);
+    }
+
+    public void supprimerPassager(Passager passager) {
+        this.passagers.remove(passager);
+    }
+
+    public void supprimerPieton(Passager passager) {
+        this.pietons.remove(passager);
+    }
 }
