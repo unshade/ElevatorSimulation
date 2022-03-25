@@ -35,7 +35,18 @@ public class EvenementArriveePassagerPalier extends Evenement {
                     assert false : "else impossible";
                 }
             } else {
-                notYetImplemented();
+                étage.ajouter(p);
+                if (c.intention() == '-') {
+                    if (p.étageDépart().numéro() > c.étage.numéro()) {
+                        c.changerIntention('^');
+                    } else {
+                        c.changerIntention('v');
+                    }
+                    if (c.porteOuverte) {
+                        echeancier.ajouter(new EvenementFermeturePorteCabine(date + tempsPourOuvrirOuFermerLesPortes));
+                    }
+                }
+                echeancier.ajouter(new EvenementPietonArrivePalier(date + délaiDePatienceAvantSportif, étage, p));
             }
         } else if (c.intention() == '-') {
             assert (c.porteOuverte);
