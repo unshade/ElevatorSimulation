@@ -22,11 +22,15 @@ public class EvenementPietonArrivePalier extends Evenement {
             // ajouter le pieton a l etage actuel
 
             if (passager.sens() == '^') {
-                étage.supprimerPietonDessous(passager);
-                étage = immeuble.étage(étage.numéro() + 1);
+                if (!(immeuble.étageLePlusHaut() == immeuble.étage(étage.numéro() + 1))) {
+                    étage.supprimerPietonDessous(passager);
+                    étage = immeuble.étage(étage.numéro() + 1);
+                }
             } else {
-                étage.supprimerPietonDessus(passager);
-                étage = immeuble.étage(étage.numéro() - 1);
+                if (!(immeuble.étageLePlusBas() == immeuble.étage(étage.numéro() + - 1))) {
+                    étage.supprimerPietonDessus(passager);
+                    étage = immeuble.étage(étage.numéro() - 1);
+                }
             }
             echeancier.ajouter(new EvenementPietonArrivePalier(date + tempsPourMonterOuDescendreUnEtageAPieds, étage, passager));
         } else {

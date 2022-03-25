@@ -149,11 +149,15 @@ public class Etage extends Global {
     }
 
     public void supprimerPietonDessous(Passager pieton) {
-        immeuble.étage(this.numéro() - 1).pietons.remove(pieton);
+        if(this != immeuble.étageLePlusBas()) {
+            immeuble.étage(this.numéro() - 1).pietons.remove(pieton);
+        }
     }
 
     public void supprimerPietonDessus(Passager pieton) {
-        immeuble.étage(this.numéro() + 1).pietons.remove(pieton);
+        if(this != immeuble.étageLePlusHaut()) {
+            immeuble.étage(this.numéro() + 1).pietons.remove(pieton);
+        }
     }
 
     public void supprimerPassager(Passager passager) {
