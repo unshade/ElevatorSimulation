@@ -18,30 +18,28 @@ public class EvenementPietonArrivePalier extends Evenement {
         if (étage != passager.étageDestination()) {
             étage.ajouterPieton(passager);
             étage.supprimerPassager(passager);
-
             // ajouter le pieton a l etage actuel
-
             if (passager.sens() == '^') {
-                if (!(immeuble.étageLePlusHaut() == immeuble.étage(étage.numéro() + 1))) {
+                if (!(immeuble.étageLePlusHaut() == immeuble.étage(étage.numéro()))) {
                     étage.supprimerPietonDessous(passager);
                     étage = immeuble.étage(étage.numéro() + 1);
+                    echeancier.ajouter(new EvenementPietonArrivePalier(date + tempsPourMonterOuDescendreUnEtageAPieds, étage, passager));
                 }
-            } else {
-                if (!(immeuble.étageLePlusBas() == immeuble.étage(étage.numéro() + - 1))) {
+            } else if (passager.sens() == 'v') {
+                if (!(immeuble.étageLePlusBas() == immeuble.étage(étage.numéro()))) {
                     étage.supprimerPietonDessus(passager);
                     étage = immeuble.étage(étage.numéro() - 1);
+                    echeancier.ajouter(new EvenementPietonArrivePalier(date + tempsPourMonterOuDescendreUnEtageAPieds, étage, passager));
                 }
             }
-            echeancier.ajouter(new EvenementPietonArrivePalier(date + tempsPourMonterOuDescendreUnEtageAPieds, étage, passager));
         } else {
             if (passager.sens() == '^') {
                 étage.supprimerPietonDessous(passager);
-            } else {
+            } else if (passager.sens() == 'v') {
                 étage.supprimerPietonDessus(passager);
             }
             étage.supprimerPieton(passager);
         }
-        // retire pieton ancien etage
     }
 
     public EvenementPietonArrivePalier(long d, Etage edd, Passager pa) {
